@@ -1,3 +1,3 @@
 # DevOps
 
-This repo contains some sample scripts respective to specific tools set.
+Terreform scripts to provision EC2 instance in AWS.
