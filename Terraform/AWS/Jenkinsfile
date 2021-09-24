@@ -10,7 +10,7 @@ pipeline{
         stage('checkout') {
             steps {
                  
-                    git "https://github.com/techielins-git/devopsgit"
+                    git "https://github.com/techielins/devops.git"
                 }
                 
             }
