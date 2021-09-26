@@ -1,4 +1,4 @@
-//IAM Policy to Restrict to Allow action ec2.* on Instance Type t2.micro and Region us-east-1//
+//IAM Policy to Restrict to Allow action ec2.* on Instance Type t2.micro and Region us-east-1 //
 
 {
     "Version": "2012-10-17",
@@ -11,6 +11,30 @@
             "Condition": {
                 "ForAllValues:StringEquals": {
                     "ec2:InstanceType": "t2.micro",
+                    "ec2:Region": "us-east-1"
+                }
+            }
+        }
+    ]
+}
+
+
+//IAM Policy to Restrict to Allow action ec2.* on Instance Type t2.*, t3.* and Region us-east-1 //
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*",
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "ec2:InstanceType": [
+                        "t2.*",
+                        "t3.*"
+                    ],
                     "ec2:Region": "us-east-1"
                 }
             }
