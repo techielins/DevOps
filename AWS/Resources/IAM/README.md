@@ -1,3 +1,3 @@
-# DevOps
+#AWS IAM
 
-This repo contains some sample scripts respective to specific tools set.
+This folder contains settings related to AWS IAM policies.
