@@ -1,3 +1,3 @@
 # DevOps
 
-Terreform scripts to provision EC2 instance in AWS.
+Terreform scripts to provision VPC, Security Group and EC2 instance in AWS.
