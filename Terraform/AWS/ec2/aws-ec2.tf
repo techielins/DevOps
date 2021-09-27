@@ -3,8 +3,8 @@ resource "aws_instance" "myInstance" {
   ami                           = var.aws_ami
   instance_type                 = var.instance_type
   availability_zone             = var.aws_az
-  key_name                      = var.aws_key_name
-  subnet_id                     = aws_subnet.subnet_name.id
+  #key_name                      = var.aws_key_name
+  subnet_id                     = aws_subnet.vnet01-priv1.id
   ebs_optimized                 = false
   hibernation                   = false
   private_ip                    = var.private_ip
@@ -16,9 +16,6 @@ resource "aws_instance" "myInstance" {
     Name = "linuxhost01"
   }
   
-  credit_specification {
-        cpu_credits = "standard"
-    }
   
   root_block_device {
         delete_on_termination = true
