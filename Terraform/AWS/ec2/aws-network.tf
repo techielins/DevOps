@@ -61,7 +61,7 @@ resource "aws_eip" "elasticip_natgw" {
 resource "aws_nat_gateway" "natgw" {
   allocation_id = aws_eip.elasticip_natgw.id
   subnet_id     = aws_subnet.vnet01-priv-subnet1.id
-  depends_on = ["aws_eip.elasticip_natgw"]
+  depends_on = [aws_eip.elasticip_natgw]
 }
 
 ### NAT GATEWAY ROUTE TABLE ###
