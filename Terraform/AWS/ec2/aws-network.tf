@@ -2,6 +2,7 @@
 
 resource "aws_vpc" "vnet01" { 
   cidr_block = var.vpc_cidr_block
+  enable_dns_hostnames = true
   tags = {
     Name = var.vpc_name
   }
@@ -9,7 +10,7 @@ resource "aws_vpc" "vnet01" {
 
 ### SUBNET DETAILS ####
 
-resource "aws_subnet" "vnet01-priv1" {
+resource "aws_subnet" "vnet01-priv-subnet1" {
   vpc_id            = aws_vpc.vnet01.id
   cidr_block        = var.subnet_cidr_block
   availability_zone = var.aws_az
@@ -17,6 +18,38 @@ resource "aws_subnet" "vnet01-priv1" {
     Name = var.subnet_name
     }
 }
+
+### INTERNET GATEWAY ####
+
+resource "aws_internet_gateway" "vnet01_igw" {
+    vpc_id   = aws_vpc.vnet01.id
+    tags = {
+      Name = var.igw_name
+    }
+}
+
+### ROUTE TABLE ###
+
+resource "aws_route_table" "vnet01_rt" {
+    vpc_id  = aws_vpc.vnet01.id
+    route  {
+            cidr_block   = "0.0.0.0/0"
+            gateway_id   = aws_internet_gateway.vnet01_igw.id
+        }
+    tags = {
+      Name = var.rt_name
+    }
+
+}
+
+#### ROUTE TABLE ASSOCIATION ####
+
+resource "aws_route_table_association" "vnet01_rta" {
+    route_table_id = aws_route_table.vnet01_rt.id
+    subnet_id      = aws_subnet.vnet01-priv-subnet1.id
+}
+
+
 
 ### SECURITY GROUP ###
 
@@ -99,7 +132,6 @@ egress {
             to_port          = 0
             self             = false
         }
-  
     tags = {
     Name = var.sg_name
     } 
