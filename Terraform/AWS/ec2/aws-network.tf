@@ -2,9 +2,9 @@
 
 resource "aws_vpc" "vnet01" { 
   cidr_block = var.vpc_cidr_block
-  tags                            = {
-        "Name" = var.vpc_name
-    }
+  tags = {
+    Name = var.vpc_name
+  }
 }
 
 ### SUBNET DETAILS ####
@@ -13,8 +13,8 @@ resource "aws_subnet" "vnet01-priv1" {
   vpc_id            = aws_vpc.vnet01.id
   cidr_block        = var.subnet_cidr_block
   availability_zone = var.aws_az
-  tags                            = {
-        "Name" = var.subnet_name
+  tags = {
+    Name = var.subnet_name
     }
 }
 
