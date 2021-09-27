@@ -16,10 +16,22 @@ variable "vpc_cidr_block" {
       default = "172.10.0.0/16"
     }
 
+#### IGW NAME INFO ####
+
+variable "igw_name" {
+      default = "vnet01_igw" 
+      }
+
+#### ROUTE TABLE NAME INFO ####
+
+variable "rt_name" {
+      default = "vnet01_rt" 
+      }
+
 #### SUBNET INFO ####
 
 variable "subnet_name" {
-      default = "vnet01-priv1" 
+      default = "vnet01-priv-subnet1" 
       }
 
 ### SUBNET CIDR ####
