@@ -27,4 +27,4 @@ override.tf.json
 # .tfstate files
 
 *.tfstate.*backup*
-.terraform.ock*
+.terraform.lock*
