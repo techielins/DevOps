@@ -1,13 +1,12 @@
 
 resource "aws_instance" "myInstance" {
   ami                           = var.aws_ami
-  instance_type                 = "t2.micro"
+  instance_type                 = var.instance_type
   availability_zone             = var.aws_az
   key_name                      = var.aws_key_name
   subnet_id                     = aws_subnet.subnet_name.id
   ebs_optimized                 = false
   hibernation                   = false
-  instance_type                 = var.instance_type
   private_ip                    = var.private_ip
   monitoring                    = false
   secondary_private_ips         = []
