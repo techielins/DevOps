@@ -49,7 +49,28 @@ resource "aws_route_table_association" "vnet01_rta" {
     subnet_id      = aws_subnet.vnet01-priv-subnet1.id
 }
 
+### ELASTIC IP ###
 
+resource "aws_eip" "elasticip_natgw" {
+  vpc                       = true
+  #associate_with_private_ip = var.private_ip
+}
+
+### NAT GATEWAY ###
+
+resource "aws_nat_gateway" "natgw" {
+  allocation_id = aws_eip.elasticip_natgw.id
+  subnet_id     = aws_subnet.vnet01-priv-subnet1.id
+  depends_on = ["aws_eip.elasticip_natgw"]
+}
+
+### NAT GATEWAY ROUTE TABLE ###
+
+resource "aws_route" "natgw_route" {
+  route_table_id         = aws_route_table.vnet01_rt.id
+  nat_gateway_id         = aws_nat_gateway.natgw.id
+  destination_cidr_block = "0.0.0.0/0"
+}
 
 ### SECURITY GROUP ###
 
