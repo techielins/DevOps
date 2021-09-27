@@ -12,23 +12,19 @@ variable "vpc_name" {
 
 ### VPC CIDR BLOCK ####
 
-variable "vpc_cidr" {
+variable "vpc_cidr_block" {
       default = "172.10.0.0/16"
     }
 
-#variable vpc_cidr_block{
-#    default = "172.10.0.0/16"
-#}
-
 #### SUBNET INFO ####
 
-variable "subnet_name" 
+variable "subnet_name" {
       default = "vnet01-priv1" 
       }
 
 ### SUBNET CIDR ####
 
-variable "subnet_cidr"{
+variable "subnet_cidr_block" {
       default = "172.10.1.0/24"
       }
 
@@ -50,6 +46,30 @@ variable "instance_type" {
         default = "t2.micro"
       }
 
+variable "aws_ami" {
+    default = "ami-0dc2d3e4c0f9ebd18"
+}
+
+### STATIC PRIVATE IP ####
+        
+variable "private_ip" {
+     default = "172.10.1.10"
+      }
+
+### AWS AVAILABILITY ZONE ###
+
+variable "aws_az" {
+    default = "us-east-1a"
+}
+
+### SSH KEY PAIRS ###
+
+variable "aws_key_name" {
+    default = "EC2KeyPairs"
+}
+
+### AMI LIST ####
+
 variable "instance_ami_id" {
         type = map
 
@@ -65,27 +85,7 @@ variable "OS" {
   default       = "AMAZON_LINUX" 
 }
 
-### STATIC PRIVATE IP ####
-        
-variable "private_ip" {
-     default = "172.10.1.10"
-      }
-
+### CPU COUNT ###
 variable "instance_cpus" {
       default = 1
       }   
-
-
-variable "aws_az" {
-    default = "us-east-1a"
-}
-
-variable "aws_key_name" {
-    default = "EC2KeyPairs"
-}
-
-variable "aws_ami" {
-    default = "ami-0dc2d3e4c0f9ebd18"
-}
-
-
