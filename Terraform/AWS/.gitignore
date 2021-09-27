@@ -25,5 +25,6 @@ override.tf.json
 **/.terraform/*
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
+
+*.tfstate.*backup*
+.terraform.ock*
