@@ -105,6 +105,17 @@ variable "OS" {
 }
 
 ### CPU COUNT ###
+
 variable "instance_cpus" {
       default = 1
       }   
+
+### NETWORK INTERFACE ###
+
+variable "network_interface" {
+  description = "Customize network interfaces to be attached at instance boot time"
+  type        = list(map(string))
+  default     = []
+}
+
+
