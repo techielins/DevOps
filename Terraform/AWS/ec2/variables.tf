@@ -28,6 +28,13 @@ variable "subnet_cidr_block" {
       default = "172.10.1.0/24"
       }
 
+### Security Group Name ####
+
+variable "sg_name" {
+      default = "web_sg" 
+      }
+
+
 ### EC2 INSTANCE DETAILS ####
 
 variable "instance_name" {
