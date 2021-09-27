@@ -66,11 +66,11 @@ resource "aws_nat_gateway" "natgw" {
 
 ### NAT GATEWAY ROUTE TABLE ###
 
-resource "aws_route" "natgw_route" {
-  route_table_id         = aws_route_table.vnet01_rt.id
-  nat_gateway_id         = aws_nat_gateway.natgw.id
-  destination_cidr_block = "0.0.0.0/0"
-}
+#resource "aws_route" "natgw_route" {
+#  route_table_id         = aws_route_table.vnet01_rt.id
+#  nat_gateway_id         = aws_nat_gateway.natgw.id
+#  destination_cidr_block = "0.0.0.0/0"
+#}
 
 ### SECURITY GROUP ###
 
