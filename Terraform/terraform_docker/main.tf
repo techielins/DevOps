@@ -17,7 +17,7 @@ resource "docker_image" "nodered_image" {
 }
 
 # Start a container
-resource "docker_container" "ubuntu" {
+resource "docker_container" "nodered_container" {
   name  = "nodered"
   image = docker_image.nodered_image.latest
   
@@ -25,4 +25,14 @@ resource "docker_container" "ubuntu" {
     internal = 1880
     external = 1880
   }
+}
+
+output "container_ip_addr" {
+  value       = join(":", [docker_container.nodered_container.ip_address,docker_container.nodered_container.ports[0].external])
+  description = "The private IP address and External port of the container."
+}
+
+output "container_name" {
+  value       = docker_container.nodered_container.name
+  description = "The name of the container."
 }
