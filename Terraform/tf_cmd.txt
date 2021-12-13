@@ -14,4 +14,9 @@ terraform commands:
 
 ~# terraform fmt
 
+~# terraform console
+
+> docker_container.ubuntu.name
+> docker_container.ubuntu.ip_address
+
 
