@@ -38,25 +38,40 @@ resource "docker_container" "nodered_container" {
   }
 }
 
-
-output "container_ip_addr1" {
-  value       = join(":",[docker_container.nodered_container[0].ip_address,docker_container.nodered_container[0].ports[0].external])
-  description = "The private IP address and External port of the container1."
-}
-
-output "container_name1" {
-  value       = docker_container.nodered_container[0].name
-  description = "The name of the container1."
+output "container_name" {
+  value       = docker_container.nodered_container[*].name
+  description = "The name of the container."
   
 }
 
-output "container_ip_addr2" {
-  value       = join(":",[docker_container.nodered_container[1].ip_address,docker_container.nodered_container[1].ports[0].external])
+output "container_ip_address" {
+  value       = [for i in docker_container.nodered_container[*]: join (":", [i.ip_address],i.ports[*]["external"])]
   description = "The private IP address and External port of the container2."
 }
 
-output "container_name2" {
-  value       = docker_container.nodered_container[1].name
-  description = "The name of the container2."
   
-}
+  
+####################### without splat and for loop ###################################
+# output "container_ip_addr1" {
+#   value       = join(":",[docker_container.nodered_container[0].ip_address,docker_container.nodered_container[0].ports[0].external])
+#   description = "The private IP address and External port of the container1."
+# }
+
+# output "container_name1" {
+#   value       = docker_container.nodered_container[0].name
+#   description = "The name of the container1."
+  
+# }
+
+# output "container_ip_addr2" {
+#   value       = join(":",[docker_container.nodered_container[1].ip_address,docker_container.nodered_container[1].ports[0].external])
+#   description = "The private IP address and External port of the container2."
+# }
+
+# output "container_name2" {
+#   value       = docker_container.nodered_container[1].name
+#   description = "The name of the container2."
+  
+# }
+####################### without splat and for loop ###################################
+  
