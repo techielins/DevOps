@@ -16,25 +16,20 @@ resource "docker_image" "nodered_image" {
   name = "nodered/node-red:latest"
 }
 
-resource "random_string" "random1" {
+resource "random_string" "random" {
+  count            = 2
   length           = 4
   special          = false
-  upper             = false
+  upper            = false
   
 }
 
-
-resource "random_string" "random2" {
-  length           = 4
-  special          = false
-  upper             = false
-  
-}
 
 
 # Start a container
-resource "docker_container" "nodered_container1" {
-  name  = join("-",["nodered",random_string.random1.result])
+resource "docker_container" "nodered_container" {
+  count = 2
+  name  = join("-",["nodered",random_string.random[count.index].result])
   image = docker_image.nodered_image.latest
   
   ports {
@@ -43,35 +38,25 @@ resource "docker_container" "nodered_container1" {
   }
 }
 
-resource "docker_container" "nodered_container2" {
-  name  = join("-",["nodered",random_string.random2.result])
-  image = docker_image.nodered_image.latest
-  
-  ports {
-    internal = 1880
-    #external = 1880
-  }
-}
 
 output "container_ip_addr1" {
-  value       = join(":",[docker_container.nodered_container1.ip_address,docker_container.nodered_container1.ports[0].external])
+  value       = join(":",[docker_container.nodered_container[0].ip_address,docker_container.nodered_container[0].ports[0].external])
   description = "The private IP address and External port of the container1."
 }
 
 output "container_name1" {
-  value       = docker_container.nodered_container1.name
+  value       = docker_container.nodered_container[0].name
   description = "The name of the container1."
   
 }
 
 output "container_ip_addr2" {
-  value       = join(":",[docker_container.nodered_container2.ip_address,docker_container.nodered_container2.ports[0].external])
+  value       = join(":",[docker_container.nodered_container[1].ip_address,docker_container.nodered_container[1].ports[0].external])
   description = "The private IP address and External port of the container2."
 }
 
 output "container_name2" {
-  value       = docker_container.nodered_container2.name
+  value       = docker_container.nodered_container[1].name
   description = "The name of the container2."
   
 }
-
