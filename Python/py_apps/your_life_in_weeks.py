@@ -21,12 +21,3 @@ remaining_months = life_months - months
 
 #Print Output
 print(f"You have {remaining_days} days, {remaining_weeks} weeks, and {remaining_months} months left.")
-
-
-
-
-
-
-
-
-
