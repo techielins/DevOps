@@ -62,11 +62,11 @@ variable "boot_volume_size_in_gbs" {
       }
 
 variable "instance_type" {
-        default = "t2.micro"
+        default = "t3a.medium"
       }
 
 variable "aws_ami" {
-    default = "ami-087c17d1fe0178315"
+    default = "ami-00068cd7555f543d5"
 }
 
 ### STATIC PRIVATE IP ####
@@ -84,7 +84,7 @@ variable "aws_az" {
 ### SSH KEY PAIRS ###
 
 variable "aws_key_name" {
-    default = "EC2KeyPairs"
+    default = "ec2_key"
 }
 
 ### AMI LIST ####
@@ -95,7 +95,7 @@ variable "instance_ami_id" {
         default = {
         CENTOS8   = "ami-056d1e4814a97ac59"
         CENTOS7   = "ami-0d0db0aecada009c5"
-        AMAZON_LINUX  = "ami-0947d2ba12ee1ff75"    
+        AMAZON_LINUX  = "ami-00068cd7555f543d5"    
 }
      } 
 
