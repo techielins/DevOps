@@ -13,7 +13,7 @@ git remote set-url origin "https://${token}@dev.azure.com/techielins/AzDevOps/_g
 git remote -v
 for i in $(cat github_branchlist.txt)
 do
-echo Pushing the Code.."
+echo "Pushing the Code.."
 echo "branch name is $i "
 git checkout $i
 git pull
