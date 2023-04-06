@@ -1,4 +1,4 @@
-echo "###########list files in checked out dir"
+echo "###########list files in checked out dir##########"
 dir
 token=$(System.AccessToken)
 git remote set-url origin "https://${token}@dev.azure.com/MyDevOps/MyApp/_git/repo1" --push
@@ -13,7 +13,7 @@ git push origin $branch -f -v
 ################
 
 #!/bin/bash
-echo "###########list files in checked out dir"
+echo "###########list files in checked out dir###########"
 dir
 git branch -r | sed -r 's|(^.*/)(.*)|\2|' > branchlist.txt
 echo "Displaying the content of list file"
