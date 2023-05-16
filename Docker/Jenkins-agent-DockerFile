@@ -1,4 +1,4 @@
-#Image details: OS:Ubuntu 18.04.3 LTS Git:2.17.1 Docker:23.0.5 Maven:3.6.3 OpenJDK:11.0.4
+#Image details: OS:Ubuntu 18.04.3 LTS, Git:2.17.1, Docker:23.0.5, Maven:3.6.3, OpenJDK:11.0.4
 FROM adoptopenjdk/maven-openjdk11
 RUN apt-get -y update \
     && apt-get install -y --no-install-recommends git apt-transport-https ca-certificates curl software-properties-common gnupg2 \
