@@ -14,7 +14,7 @@ iam_database_authentication_enabled     =   true
 performance_insights_enabled            =   true
 publicly_accessible                     =   false
 
-private_subnet_ids                    =   ["subnet-xxx","subnet-xxx","subnet-xxx"]   # Replace these subnet ids with your private subnet ids
+private_subnet_ids                      =   ["subnet-xxx","subnet-xxx","subnet-xxx"]   # Replace these subnet ids with your private subnet ids
 tags                                    =   { "Created By" = "Terraform using Techielins Aurora-PSQL Module" }
 create_cms_key                          =   false
 storage_encrypted                       =   true
