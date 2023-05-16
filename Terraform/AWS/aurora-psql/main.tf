@@ -1,6 +1,6 @@
 module "aurora_postgres" {
   
-    source                                  =   "github.com/techielins/aws_aurora_postgres?ref=psql-v1.0"
+    source                                  =   "github.com/techielins/terraform_modules/aws_aurora_postgres?ref=psql-v1.0"
     region                                  =   var.region
     cluster_identifier                      =   var.cluster_identifier     
     engine                                  =   var.engine
