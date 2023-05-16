@@ -31,9 +31,9 @@ locals {
 
 
 # Create an AWS Aurora RDS cluster with the specified configuration
+
 resource "aws_rds_cluster" "aurora_cluster" {
     
-  
     allow_major_version_upgrade         =   var.allow_major_version_upgrade
     apply_immediately                   =   var.apply_immediately
     availability_zones                  =   local.az_names
@@ -86,6 +86,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
 }
 
 //creates writer instance
+
 resource "aws_rds_cluster_instance" "aurora_cluster_instance_0" {
     
     apply_immediately               =   var.apply_immediately
@@ -125,10 +126,10 @@ resource "aws_rds_cluster_instance" "aurora_cluster_instance_0" {
 }
   
 //creates read replicas
+
 resource "aws_rds_cluster_instance" "aurora_cluster_instance_n" {
      
-    count  = var.replica_scale_enabled ? var.replica_scale_min : var.replica_count 
-    
+    count  = var.replica_scale_enabled ? var.replica_scale_min : var.replica_count     
     apply_immediately               =   var.apply_immediately
     auto_minor_version_upgrade      =   var.auto_minor_version_upgrade
     cluster_identifier              =   var.cluster_identifier
@@ -149,8 +150,8 @@ resource "aws_rds_cluster_instance" "aurora_cluster_instance_n" {
 }
 
 resource "aws_appautoscaling_target" "read_replica_count" {
+  
   count = var.replica_scale_enabled ? 1 : 0
-
   max_capacity       = var.replica_scale_max
   min_capacity       = var.replica_scale_min
   resource_id        = "cluster:${element(concat(aws_rds_cluster.aurora_cluster.*.cluster_identifier, [""]), 0)}"
@@ -159,8 +160,8 @@ resource "aws_appautoscaling_target" "read_replica_count" {
   }
 
 resource "aws_appautoscaling_policy" "autoscaling_read_replica_count" {
+  
   count = var.replica_scale_enabled ? 1 : 0
-
   name               = "target-metric"
   policy_type        = "TargetTrackingScaling"
   resource_id        = "cluster:${element(concat(aws_rds_cluster.aurora_cluster.*.cluster_identifier, [""]), 0)}"
@@ -180,6 +181,7 @@ resource "aws_appautoscaling_policy" "autoscaling_read_replica_count" {
 }
 
 //generates random password- sensitive in nature
+
 resource "random_password" "master_password" {
     
     length              =   var.random_password_length
@@ -188,6 +190,7 @@ resource "random_password" "master_password" {
 }
 
 //creates a kms key for aurora cluster
+  
 resource "aws_kms_key" "kms_aurora_cluster"{
     
     count                   =   var.create_cms_key ? 1 : 0   
@@ -214,6 +217,7 @@ resource "aws_kms_key" "kms_aurora_cluster"{
 }
 
 //Provides an RDS DB parameter group resource
+  
 resource "aws_db_parameter_group" "aurora_db_parameter_group"{
     
     name            =   lower("Aurora-PSQL-Parameter-Group-for-instance-${var.cluster_identifier}")
@@ -226,6 +230,7 @@ resource "aws_db_parameter_group" "aurora_db_parameter_group"{
 }
 
 //Provides an RDS DB cluster parameter group resource
+  
 resource "aws_rds_cluster_parameter_group" "aurora_cluster_parameter_group" {
     
     name            =   lower("Aurora-PSQL-Cluster-Parameter-Group-for-cluster-${var.cluster_identifier}")
