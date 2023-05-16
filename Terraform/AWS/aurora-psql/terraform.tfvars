@@ -29,6 +29,8 @@ serverlessv2_scaling_configuration      =   {
                                             }                    # Serverlessv2_scaling_configuration configuration is required only if we are using instance_class as db.serverless, else ignore the serverlessv2_scaling_configuration block
 replica_scale_enabled                   =   true
 replica_count                           =   1
+replica_scale_max                       =   2
+replica_scale_min                       =   1
 
 enable_cloudwatch_alarm                                   =   false
 cloudwatch_alarm_evaluation_period                        =   2
