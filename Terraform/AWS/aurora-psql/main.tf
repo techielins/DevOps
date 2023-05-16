@@ -25,8 +25,7 @@ module "aurora_postgres" {
     performance_insights_enabled            =   var.performance_insights_enabled
     promotion_tier                          =   var.promotion_tier
     publicly_accessible                     =   var.publicly_accessible
-
-    private_subnet_ids_p                    =   var.private_subnet_ids_p
+    private_subnet_ids                      =   var.private_subnet_ids
     
     tags                                    =   var.tags
   
