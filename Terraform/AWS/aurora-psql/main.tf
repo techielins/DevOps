@@ -38,7 +38,6 @@ module "aurora_postgres" {
     
     create_security_group                   =   var.create_security_group
     security_group_id                       =   var.security_group_id
-    vpc_id                                  =   var.vpc_id
     security_group_ingress_cidr_block       =   var.security_group_ingress_cidr_block
 
     monitoring_interval                     =   var.monitoring_interval
