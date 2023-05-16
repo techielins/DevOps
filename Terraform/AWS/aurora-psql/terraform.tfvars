@@ -1,6 +1,7 @@
 region                                  =   "us-east-1"
 cluster_identifier                      =   "mypsqlcluster"
 family                                  =   "aurora-postgresql15"
+engine                                  =   "aurora-postgresql"
 engine_version                          =   "15.2"                  # To provision serverless DB, supported engine_versions are between 13.6-13.8, 14.3-14.7 and 15.2
 instance_class                          =   "db.r5.large"           # To provision serverless DB, instance_class should be changed to db.serverless
                                                                     # Aurora PostgreSQL engine versions earlier than 11.9 don't support the newest r6g generation instance classes.
