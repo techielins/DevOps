@@ -20,7 +20,6 @@ create_cms_key                          =   false
 storage_encrypted                       =   true
 create_security_group                   =   true                 # If false, security_group_id must be provided. If true, vpc_id and security_group_ingress_cidr_block must be mentioned.
 security_group_id                       =   ["sg-xxx"]           # Replace this with your security group id, if create_security_group is set to false.
-vpc_id                                  =   "vpc-xxx"            # Replace this with your vpc id, if create_security_group is set to true.
 security_group_ingress_cidr_block       =   ["0.0.0.0/0"]        # For ingress rule. security_group_ingress_cidr_block is needed when create_security_group is set to true.
 enable_enhanced_monitoring              =   true
 serverlessv2_scaling_configuration      =   {
