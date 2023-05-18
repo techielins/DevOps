@@ -213,9 +213,7 @@ spec:
         - name: jenkins-persistent-storage
           persistentVolumeClaim:
             claimName: jenkins-pvclaim
-            readOnly: false
-
-             
+            readOnly: false           
 ```
 * Apply the configuration using following command
 
@@ -236,6 +234,35 @@ NAME                                             READY   STATUS    RESTARTS   AG
 pod/jenkins-master-deployment-7595947c7b-7vrms   1/1     Running   0          115s
 
 ```
+# Expose Jenkins deployment as Service - jenkins-service.yml
+
+Create a yaml - **jenkins-service.yaml** and copy the following contents.
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: jenkins
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path:   /
+      prometheus.io/port:   '8080'
+spec:
+  selector:
+    app: jenkins-master
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol : TCP
+      nodePort: 32000
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
+      protocol: TCP
+```     
+
 
 
 
