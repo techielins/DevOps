@@ -23,7 +23,6 @@ metadata:
 $ kubectl apply -f service-account.yaml
 ```
 
-
 # Setup jenkins cluster role
 
 * Create a file **jenkins-cluster-role.yaml** and copy the following contents.
@@ -262,8 +261,43 @@ spec:
       targetPort: 50000
       protocol: TCP
 ```     
+* Apply the configuration using following command
+```
+$ kubectl apply -f jenkins-service.yml
+```
+Note : Access Jenkins running on minikube and hosted on AWS, you the following command to access Jenkins interface using Public IP
+```
+kubectl -n jenkins port-forward --address 0.0.0.0 service/jenkins-service 32000:8080 > /dev/null &
+```
 
+# How to find Jenkins initial Administrator password
 
+Now you need to find Jenkins initial admin password and for that first, you need to get your Kubernetes pod name
+```
+$ kubectl get po -n jenkins
+```
+Run the log command on the Kubernetes pod to find the Jenkins initial admin password
+
+```
+$ kubectl logs <jenkins-pod-name> -n jenkins
+```
+It should return the pods logs along with Jenkins initial admin password
+
+```
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+35d38845036a4b4caf16c79f80921f21
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+```
+# Supply Jenkins Admin password
+
+Give the admin password that you got from the log while accessing the Jenkins UI for the first time and go ahead creating a admin user.
+# Create a Kubernetes Cloud Configuration
+
+Once logged-in, go to - Manage Jenkins -> Configure System
 
 
 
