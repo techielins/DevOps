@@ -1,0 +1,24 @@
+#Expose Jenkins deployment as Service - jenkins-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: jenkins
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path:   /
+      prometheus.io/port:   '8080'
+spec:
+  selector:
+    app: jenkins-master
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol : TCP
+      nodePort: 32000
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
+      protocol: TCP
