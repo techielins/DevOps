@@ -138,7 +138,7 @@ NAME              STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS  
 jenkins-pvclaim   Bound    jenkins-pv   5Gi        RWO            local-storage   2m39s
 ```
 # Jenkins deployment 
-Now we are going to install the Jenkins and for that, we are going to create jenkins-deployment.yaml
+Now we are going to install the Jenkins and for that, we are going to create **jenkins-deployment.yaml**
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -233,7 +233,7 @@ NAME                                             READY   STATUS    RESTARTS   AG
 pod/jenkins-master-deployment-7595947c7b-7vrms   1/1     Running   0          115s
 
 ```
-# Expose Jenkins deployment as Service - jenkins-service.yml
+# Expose Jenkins deployment as Service - jenkins-service.yaml
 
 Create a yaml - **jenkins-service.yaml** and copy the following contents.
 ```
@@ -263,7 +263,7 @@ spec:
 ```     
 * Apply the configuration using following command
 ```
-$ kubectl apply -f jenkins-service.yml
+$ kubectl apply -f jenkins-service.yaml
 ```
 Note : Access Jenkins running on minikube and hosted on AWS, you the following command to access Jenkins interface using Public IP
 ```
