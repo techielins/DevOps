@@ -1,11 +1,11 @@
 # Situation (Use case)
 
-If you need to have an automatic mechanism to stop every instances of RDS running in particular AWS region (say us-east-1) at the end of the day at specifc time (say 7PM IST) thus making sure that RDS instance are not running overnight
+If you need to have an automatic mechanism to stop every instances of RDS running in particular AWS region (say us-east-1) at the end of the day at specifc time (say 7PM IST everyday) thus making sure that RDS instance are not running overnight
 to save running cost. 
 
 # Task
 
-You can achieve a automated solution to this use case with help of AWS Lambda function and Cloudwatch Events.
+You can achieve an automated solution to this use case with help of AWS Lambda function and Cloudwatch Events (EventBridge).
 
 # Action
 
