@@ -1,7 +1,8 @@
 # Situation (Use case)
 
-If you need to have an automatic mechanism to stop every instances of RDS running in particular AWS region (say us-east-1) at the end of the day at specifc time (say 7PM IST everyday) thus making sure that RDS instance are not running overnight
-to save running cost. 
+If you need to have an automatic mechanism to stop every instances of RDS running in particular AWS region (say us-east-1) at the end of the day at specifc time (say 7PM IST everyday) thus making sure that RDS instance are not running overnight to save running cost. 
+
+_Note: Python script doesn't manage to take care of Aurora instances. It is specifically for RDS instances._
 
 # Task
 
