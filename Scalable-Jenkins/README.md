@@ -297,7 +297,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 Give the admin password that you got from the log while accessing the Jenkins UI for the first time and go ahead creating a admin user.
 # Create a Kubernetes Cloud Configuration
 
-Once logged-in, go to - Manage Jenkins -> Configure System
+Once logged-in, go to - Manage Jenkins -> Configure System ->
 
 
 
