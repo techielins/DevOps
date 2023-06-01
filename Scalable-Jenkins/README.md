@@ -313,32 +313,47 @@ http://jenkins-service.jenkins.svc.cluster.local:8080
 
 Add the POD label that can be used for grouping the containers if required in terms for custom build dashboards.
 
-![image](https://github.com/techielins/DevOps/assets/68058598/47da862a-f0a0-4a7b-bdb5-09c0fd63a787)
+![image](https://github.com/techielins/DevOps/assets/68058598/a3ed9efd-014b-4c62-871e-c222a7ba9f06)
 
 # Create POD and Container Template
 
-The label "**pod-agent**" will be used in the job as an identifier to pick this pod as the build agent. Next, we need to add a container template with the Docker image details.
-![image](https://github.com/techielins/DevOps/assets/68058598/157c7aa2-3b3b-4de9-97d0-c10d46b9a9a2)
+The label "**slave**" will be used in the job as an identifier to pick this pod as the build agent. Next, we need to add a container template with the Docker image details.
 
-The next configuration is the container template. If you don’t add a container template, the Jenkins Kubernetes plugin will use the default JNLP image from the Docker hub to spin up the agents. ie, jenkins/inbound-agent
+![image](https://github.com/techielins/DevOps/assets/68058598/a5e2c3c4-79db-4bfc-ae02-c68421f96503)
+
+The next configuration is the container template. If you don’t add a container template, the Jenkins Kubernetes plugin will use the default JNLP image from the Docker hub to spin up the agents. ie, jenkins/inbound-agent. Otherwise use your custom image.
 
 Ensure that you remove the sleep and 9999999 default argument from the container template.
-![image](https://github.com/techielins/DevOps/assets/68058598/498cf13d-cdf7-451e-8e08-860f9a7e3d95)
+
+![image](https://github.com/techielins/DevOps/assets/68058598/558101de-29fa-459b-a4ac-037866d0a2e7)
+
 This is the base minimum configuration required for the agent to work. Save all the configurations and let’s test if we can build a job with a pod agent.
 
 # Create Jenkins FreeStyle Job
 
 Jenkins home –> New Item and create a freestyle project.
 
-In the job description, add the label **pod-agent** as shown below. It is the label we assigned to the pod template. This way, Jenkins knows which pod template to use for the agent container.
-![image](https://github.com/techielins/DevOps/assets/68058598/774cc6df-cb0b-4988-8b89-06d6302eb327)
+In the job description, add the label **slave** as shown below. It is the label we assigned to the pod template. This way, Jenkins knows which pod template to use for the agent container.
+
+![image](https://github.com/techielins/DevOps/assets/68058598/725dee09-6a60-4822-8e76-07e3f2ff7d9f)
 
 Add a shell build step with an echo command to validate the job as shown below.
+
 ![image](https://github.com/techielins/DevOps/assets/68058598/13c460d7-2a8f-420e-b304-56ab52c9edd8)
 
-Save the job configuration and click “Build Now”
+Save the job configuration and click “Build Now”. You should see a pending agent in the job build history as shown below.
 
-![image](https://github.com/techielins/DevOps/assets/68058598/43f9c0b5-bc58-460e-8298-ede5a068682e)
+![image](https://github.com/techielins/DevOps/assets/68058598/5468cee2-a4a9-4368-bc32-07dfa5e6ef26)
+
+And you should see, slave pod is running in kubernetes cluster.
+
+```
+~$ kubectl get po
+NAME                                         READY   STATUS    RESTARTS       AGE
+jenkins-master-deployment-5bd45d65fd-rthts   1/1     Running   5 (120m ago)   14d
+jenkins-slave-jf9qx                          1/1     Running   0              37s
+```
+
 
 
 
