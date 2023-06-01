@@ -295,9 +295,54 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 # Supply Jenkins Admin password
 
 Give the admin password that you got from the log while accessing the Jenkins UI for the first time and go ahead creating a admin user.
+
 # Create a Kubernetes Cloud Configuration
 
-Once logged-in, go to - Manage Jenkins -> Configure System ->
+Once logged-in, go to - Manage Jenkins -> Manage Node and Clouds -> Click Configure Clouds -> Add a new Cloud” select Kubernetes -> Select Kubernetes Cloud Details > Provie Kubernetes namespace as jenkins.
+
+Since we have Jenkins inside the Kubernetes cluster with a service account to deploy the agent pods, we don’t have to mention the Kubernetes URL or certificate key. However, to validate the connection using the service account, use the Test connection. It should show a connected message shown as below if the Jenkins pod can connect to the Kubernetes master API.
+
+```
+Connected to Kubernetes v1.26.1
+```
+# Configure the Jenkins URL Details
+
+For Jenkins master running inside the cluster, you can use the Service endpoint of the Kubernetes cluster as the Jenkins URL because agents pods can connect to the cluster via internal service DNS. The service DNS will be,
+
+http://jenkins-service.jenkins.svc.cluster.local:8080
+
+Add the POD label that can be used for grouping the containers if required in terms for custom build dashboards.
+
+![image](https://github.com/techielins/DevOps/assets/68058598/47da862a-f0a0-4a7b-bdb5-09c0fd63a787)
+
+# Create POD and Container Template
+
+The label "**pod-agent**" will be used in the job as an identifier to pick this pod as the build agent. Next, we need to add a container template with the Docker image details.
+![image](https://github.com/techielins/DevOps/assets/68058598/157c7aa2-3b3b-4de9-97d0-c10d46b9a9a2)
+
+The next configuration is the container template. If you don’t add a container template, the Jenkins Kubernetes plugin will use the default JNLP image from the Docker hub to spin up the agents. ie, jenkins/inbound-agent
+
+Ensure that you remove the sleep and 9999999 default argument from the container template.
+![image](https://github.com/techielins/DevOps/assets/68058598/498cf13d-cdf7-451e-8e08-860f9a7e3d95)
+This is the base minimum configuration required for the agent to work. Save all the configurations and let’s test if we can build a job with a pod agent.
+
+# Create Jenkins FreeStyle Job
+
+Jenkins home –> New Item and create a freestyle project.
+
+In the job description, add the label **pod-agent** as shown below. It is the label we assigned to the pod template. This way, Jenkins knows which pod template to use for the agent container.
+![image](https://github.com/techielins/DevOps/assets/68058598/774cc6df-cb0b-4988-8b89-06d6302eb327)
+
+Add a shell build step with an echo command to validate the job as shown below.
+![image](https://github.com/techielins/DevOps/assets/68058598/13c460d7-2a8f-420e-b304-56ab52c9edd8)
+
+Save the job configuration and click “Build Now”
+
+![image](https://github.com/techielins/DevOps/assets/68058598/43f9c0b5-bc58-460e-8298-ede5a068682e)
+
+
+
+
 
 
 
