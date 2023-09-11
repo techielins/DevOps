@@ -1,1 +1,1 @@
-To provision AWS Aurora, please check main.tf file.
+To provision AWS Aurora, please use terraform.tfvars file.
