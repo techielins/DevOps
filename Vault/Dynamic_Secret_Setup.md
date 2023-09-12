@@ -11,8 +11,7 @@ docker run \
     -e POSTGRES_USER=root \
     -e POSTGRES_PASSWORD=rootpassword \
     -p 5432:5432 \
-    --rm \
-    postgres
+    -v /data:/var/lib/postgresql/data -d postgres
 ```
 Verify that the postgres container is running.
 ```
@@ -27,7 +26,7 @@ docker exec -i \
 Grant the ability to read all tables to the role named ro.
 ```
 docker exec -i \
-    learn-postgres \
+    postgres-ct \
     psql -U root -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"ro\";"
 ```
 The database is available and the role is created with the appropriate permissions.
@@ -62,8 +61,8 @@ vault write database/config/postgresql \
 ```
 ## Create a role
 A role is a logical name within Vault that maps to database credentials. These credentials are expressed as SQL statements and assigned to the Vault role.
-```
 Define the SQL used to create credentials.
+```
 tee readonly.sql <<EOF
 CREATE ROLE "{{name}}" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}' INHERIT;
 GRANT ro TO "{{name}}";
