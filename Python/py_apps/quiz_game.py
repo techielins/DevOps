@@ -30,7 +30,7 @@ else:
     print("Come on you should be knowing this German striker. Answer is wrong.")
                   
     
-answer = input("Which african country hosted the World cup is 2010 ?")
+answer = input("Which african country hosted the World cup in 2010 ?")
 if answer.lower() == "south africa":
     print("You got it. Answer is correct")
     score +=1
@@ -45,7 +45,7 @@ else:
     print("You forgot the GOAT Messi?. Answer is wrong.")
     
 print("Thats the end of the quiz. Thank you for participating.")
-print(f"Your score is {score} out of 6 with percentage of " + str((score/5) * 100) + "%")
+print(f"Your score is {score} out of 5 with percentage of " + str((score/5) * 100) + "%")
 
 
 
