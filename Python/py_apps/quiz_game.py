@@ -20,7 +20,7 @@ if answer.lower() == "brazil":
     print("You got it. Answer is correct")
     score +=1
 else:
-    print("Looks like you aren't not Brazil fan ;-). Answer is wrong.")
+    print("Looks like you aren't a Brazil fan ;-). Answer is wrong.")
     
 answer = input("Who scored most goals in World cup ?")
 if answer.lower() == "mirozlav klose":
