@@ -45,7 +45,7 @@ else:
     print("You forgot the GOAT Messi?. Answer is wrong.")
     
 print("Thats the end of the quiz. Thank you for participating.")
-print(f"You score is {score} out of 6 with percentage of " + str((score/5) * 100) + "%")
+print(f"Your score is {score} out of 6 with percentage of " + str((score/5) * 100) + "%")
 
 
 
