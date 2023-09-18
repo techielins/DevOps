@@ -88,7 +88,9 @@ kubectl apply -f devwebapp.yaml
 kubectl get pods
 ```
 Wait until the devwebapp pod reports that is running and ready (1/1).
-5. 
+5. Request content served at localhost:8080 from within the devwebapp pod
+```
+
    
 
 
