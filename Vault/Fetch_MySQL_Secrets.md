@@ -116,6 +116,22 @@ To log in to the MySQL console for the MySQL pod you deployed in your Minikube c
 4. After entering the correct password, you should be logged in to the MySQL console. You can now run SQL commands and interact with the MySQL database.
 
 5. When you're finished with the MySQL console, you can exit the pod by typing `exit`.
+6. Create a Kubernetes Service Account
+Create a Kubernetes service account by creating a YAML file (e.g., service-account.yaml) with the following content:
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-service-account
+```
+This YAML defines a service account named my-service-account.
+
+Apply the service account configuration to your Minikube cluster:
+```
+kubectl apply -f service-account.yaml
+```
+
+   
 
 ## Configure HashiCorp Vault:
 1. Make sure vault is running
@@ -136,9 +152,50 @@ vault login
 vault secrets enable -version=2 kv
 vault kv put secrets/mysql/config root_password='MySQL#400'
 ```
-5. Verify that the secret is stored at the path secret/devwebapp/config.
+5. Verify that the secret is stored at the path secrets/mysql/config.
 ```
 vault kv get -format=json secrets/mysql/config | jq ".data.data"
 ```
 6. The Vault server, with secret, is ready to be addressed by a Kubernetes cluster and the pods deployed in it.
+
+7. Grant Access to Kubernetes Service Account:
+
+In order to allow your Kubernetes pods to access Vault and retrieve the MySQL root password, you need to configure Vault policies and roles for Kubernetes service accounts.
+
+Create a Vault policy that allows read access to the MySQL secret path.
+Example policy (mysql-policy.hcl):
+```
+path "secrets/mysql/*" {
+  capabilities = ["read"]
+}
+```
+This policy grants read access to all secrets under the secrets/mysql path. You can customize this policy according to your specific needs, allowing read or write access to different paths as required.
+8. Write the Policy to Vault
+Use the vault policy write command to create the policy in Vault. Replace <policy-name> with your desired policy name, and specify the path to the policy file you created:
+```
+vault policy write mysql-read-policy mysql-policy.hcl
+```
+
+8. Create a Vault role that associates the Kubernetes Service Account with the policy.
+Example role (mysql-role.hcl):
+
+```
+path "auth/kubernetes/login" {
+  capabilities = ["create", "read"]
+}
+
+path "secrets/data/mysql/*" {
+  capabilities = ["read"]
+}
+
+bound_service_account_names = ["my-service-account"]
+bound_service_account_namespaces = ["default"]
+```
+9. Write the role to Vault:
+```
+vault write auth/kubernetes/role/mysql-role @vault-role.hcl
+```
+
+10. 
+
 
