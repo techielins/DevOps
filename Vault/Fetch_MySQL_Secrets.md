@@ -117,5 +117,28 @@ To log in to the MySQL console for the MySQL pod you deployed in your Minikube c
 
 5. When you're finished with the MySQL console, you can exit the pod by typing `exit`.
 
-
+## Configure HashiCorp Vault:
+1. Make sure vault is running
+```
+systemctl status vault
+```
+2. Export an environment variable for the vault CLI to address the Vault server.
+```
+ export VAULT_ADDR='http://127.0.0.1:8200'
+```
+3. Login with the root token.
+```
+vault operator unseal
+vault login
+```
+4. Create a secret at path secrets/mysql/config with a root password.
+```
+vault secrets enable -version=2 kv
+vault kv put secrets/mysql/config root_password='MySQL#400'
+```
+5. Verify that the secret is stored at the path secret/devwebapp/config.
+```
+vault kv get -format=json secrets/mysql/config | jq ".data.data"
+```
+6. The Vault server, with secret, is ready to be addressed by a Kubernetes cluster and the pods deployed in it.
 
