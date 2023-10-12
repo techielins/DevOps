@@ -1,4 +1,4 @@
-## Step 1 — Installing Jenkins
+## Step 1 - Installing Jenkins in Ubuntu
 
 ```
 curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
